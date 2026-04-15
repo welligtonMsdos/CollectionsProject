@@ -11,13 +11,11 @@ public class RabbitMQProducerService : IRabbitMQProducerService
     private readonly ConnectionFactory _factory;
     private const string QueueName = "trigger";
 
-    public required string HostName { get; set ; }
-
     public RabbitMQProducerService()
     {
         _factory = new ConnectionFactory
         {
-            HostName = HostName ?? "localhost",
+            HostName = "rabbit",
             AutomaticRecoveryEnabled = true
         };
     }

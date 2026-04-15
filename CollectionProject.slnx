@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="CollectionDomain/CollectionDomain.csproj" />
+  <Project Path="CollectionEmail/CollectionEmail.csproj" />
+  <Project Path="CollectionOutbox/CollectionOutbox.csproj" />
 </Solution>
