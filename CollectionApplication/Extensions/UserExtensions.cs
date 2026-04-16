@@ -1,7 +1,7 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Models.Users;
+﻿using CollectionApplication.Dtos;
+using CollectionDomain.Entities;
 
-namespace CollectionDomain.Extensions;
+namespace CollectionApplication.Extensions;
 
 public static class UserExtensions
 {
@@ -49,6 +49,4 @@ public static class UserExtensions
         user.Name = userUpdateDto.Name;
         user.Email = userUpdateDto.Email;
     }
-
-
 }

@@ -1,11 +1,11 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Interfaces.Services;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CollectionDomain.Services;
+namespace CollectionInfrastructure.Service;
 
 public class TokenService : ITokenService
 {
@@ -30,7 +30,8 @@ public class TokenService : ITokenService
             Expires = DateTime.UtcNow.AddHours(2),
             //Issuer = "http://13.59.37.186:5011",
             Issuer = "http://localhost:5011",
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyDefault), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyDefault), 
+                                                        SecurityAlgorithms.HmacSha256Signature)
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);

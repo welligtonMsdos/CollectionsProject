@@ -1,5 +1,5 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Interfaces.Services;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;

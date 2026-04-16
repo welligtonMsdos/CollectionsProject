@@ -1,14 +1,11 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Models.Outbox;
-using CollectionDomain.Models.Users;
+﻿using CollectionDomain.Entities;
 using MongoDB.Driver;
 
-namespace CollectionDomain.Interfaces.Repository;
+namespace CollectionDomain.Interfaces;
 
 public interface IUserRepository
 {
-    Task<User> GetByEmailAsync(string email);
-    Task<User> GetDataLoginAsync(UserLoginDto userLoginDto);
+    Task<User> GetByEmailAsync(string email);    
     Task<bool> AddOutboxMessage(OutboxMessage outboxMessage, IClientSessionHandle session);
     Task<bool> ExistsByEmailAsync(string email);
     Task<User> PostAsync(User user, IClientSessionHandle session);

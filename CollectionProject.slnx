@@ -1,5 +1,7 @@
 <Solution>
+  <Project Path="CollectionApplication/CollectionApplication.csproj" Id="d2e6e8eb-6c1f-4fae-8fea-a34130c1fe31" />
   <Project Path="CollectionDomain/CollectionDomain.csproj" />
   <Project Path="CollectionEmail/CollectionEmail.csproj" />
+  <Project Path="CollectionInfrastructure/CollectionInfrastructure.csproj" Id="cde31a5a-9f47-46e8-ac37-a30800b16dde" />
   <Project Path="CollectionOutbox/CollectionOutbox.csproj" />
 </Solution>

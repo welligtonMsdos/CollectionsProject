@@ -1,7 +1,7 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Interfaces.Services;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 
-namespace CollectionDomain.Services;
+namespace CollectionInfrastructure.Service;
 
 public class EmailService : IEmailService
 {

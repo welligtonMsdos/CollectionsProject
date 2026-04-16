@@ -1,6 +1,6 @@
-﻿using CollectionDomain.Dtos.Users;
+﻿using CollectionApplication.Dtos;
 
-namespace CollectionDomain.Interfaces.Services;
+namespace CollectionApplication.Interfaces;
 
 public interface ITokenService
 {

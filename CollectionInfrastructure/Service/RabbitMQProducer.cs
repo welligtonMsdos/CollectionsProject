@@ -1,17 +1,17 @@
-﻿using CollectionDomain.Interfaces.Services;
-using CollectionDomain.Models.Users;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 
-namespace CollectionDomain.Services;
+namespace CollectionInfrastructure.Service;
 
-public class RabbitMQProducerService : IRabbitMQProducerService
+public class RabbitMQProducer : IRabbitMQProducer
 {
     private readonly ConnectionFactory _factory;
     private const string QueueName = "trigger";
 
-    public RabbitMQProducerService()
+    public RabbitMQProducer()
     {
         _factory = new ConnectionFactory
         {
@@ -20,7 +20,7 @@ public class RabbitMQProducerService : IRabbitMQProducerService
         };
     }
 
-    public async Task<bool> AddUserDtoAsync(User user)
+    public async Task<bool> AddUserDtoAsync(UserDto userDto)
     {
         await using var connection = await _factory.CreateConnectionAsync();
         await using var channel = await connection.CreateChannelAsync();
@@ -32,7 +32,8 @@ public class RabbitMQProducerService : IRabbitMQProducerService
             autoDelete: false,
             arguments: null);
 
-        var message = JsonSerializer.Serialize(user);
+        var message = JsonSerializer.Serialize(userDto);
+
         var body = Encoding.UTF8.GetBytes(message);
 
         await channel.BasicPublishAsync(

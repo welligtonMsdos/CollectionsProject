@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CollectionDomain.Models.Outbox;
+namespace CollectionDomain.Entities;
 
 public class OutboxMessage
 {

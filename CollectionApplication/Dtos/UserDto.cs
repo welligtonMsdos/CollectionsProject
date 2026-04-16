@@ -1,4 +1,4 @@
-﻿namespace CollectionDomain.Dtos.Users;
+﻿namespace CollectionApplication.Dtos;
 
 public record UserDto(
     string _id,

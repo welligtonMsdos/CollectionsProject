@@ -1,4 +1,4 @@
-﻿namespace CollectionDomain.Interfaces.Services;
+﻿namespace CollectionApplication.Interfaces;
 
 public interface IProcessEvent
 {

@@ -1,14 +1,15 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Extensions;
-using CollectionDomain.Interfaces.Repository;
-using CollectionDomain.Interfaces.Services;
-using CollectionDomain.Models.Outbox;
-using CollectionDomain.Validators.Users;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Extensions;
+using CollectionApplication.Interfaces;
+using CollectionApplication.Validators.Users;
+using CollectionDomain.Entities;
+using CollectionDomain.Interfaces;
+using CollectionInfrastructure.Exceptions;
 using FluentValidation;
 using MongoDB.Driver;
 using System.Text.Json;
 
-namespace CollectionDomain.Services;
+namespace CollectionInfrastructure.Service;
 
 public class UserService : IUserService
 {
@@ -17,9 +18,9 @@ public class UserService : IUserService
     private readonly UserCreateValidator _createValidator;
     private readonly UserUpdateValidator _updateValidator;
 
-    public UserService(IUserRepository repository, 
-                       IMongoClient mongoClient, 
-                       UserCreateValidator createValidator, 
+    public UserService(IUserRepository repository,
+                       IMongoClient mongoClient,
+                       UserCreateValidator createValidator,
                        UserUpdateValidator updateValidator)
     {
         _repository = repository;
@@ -77,9 +78,13 @@ public class UserService : IUserService
     {
         ArgumentNullException.ThrowIfNull(userLoginDto);
 
-        var user = await _repository.GetDataLoginAsync(userLoginDto);
+        var user = await _repository.GetByEmailAsync(userLoginDto.Email);
 
-        ArgumentNullException.ThrowIfNull(user);
+        if (user == null) throw new BusinessException("User not found.");
+
+        bool verified = BCrypt.Net.BCrypt.Verify(userLoginDto.Password, user.Password);
+
+        if (!verified) throw new BusinessException("Invalid password.");
 
         return user.ToDataLoginDto();
     }

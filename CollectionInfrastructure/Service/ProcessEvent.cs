@@ -1,9 +1,9 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Interfaces.Services;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
-namespace CollectionDomain.Services;
+namespace CollectionInfrastructure.Service;
 
 public class ProcessEvent : IProcessEvent
 {
