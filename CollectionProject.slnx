@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AuthApi/AuthApi.csproj" Id="63d00f1a-ee50-452b-ade4-a3eaf172902d" />
+  <Project Path="CollectionApi/CollectionApi.csproj" Id="cd34b343-5c68-480a-a9d0-40fa98dead8b" />
   <Project Path="CollectionApplication/CollectionApplication.csproj" Id="d2e6e8eb-6c1f-4fae-8fea-a34130c1fe31" />
   <Project Path="CollectionDomain/CollectionDomain.csproj" />
   <Project Path="CollectionEmail/CollectionEmail.csproj" />
