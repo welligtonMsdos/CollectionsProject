@@ -57,6 +57,8 @@ public class OutboxWorker: BackgroundService
             {
                 _logger.LogInformation($"Processing Outbox {message.Id}");
 
+                Console.WriteLine($"[x] Message: {message}");
+
                 var userObject = JsonSerializer.Deserialize<UserDto>(message.Content);
 
                 if (userObject != null)

@@ -49,6 +49,8 @@ public class RabbitMQConsumerService: BackgroundService
 
             try
             {
+                Console.WriteLine($"[x] Message: {message}");
+
                 var user = JsonSerializer.Deserialize<UserDto>(message);
 
                 using (var scope = _serviceProvider.CreateScope())

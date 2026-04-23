@@ -10,16 +10,16 @@ namespace AuthApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
-    private readonly ITokenService _tokenService;
+    private readonly ITokenService _tokenService;   
     private readonly string _key;
 
     public AuthController(IUserService userService, 
-                          ITokenService tokenService,
-                          string key)
+                          ITokenService tokenService)
     {
         _userService = userService;
         _tokenService = tokenService;
-        _key = key;
+        
+        _key = Environment.GetEnvironmentVariable("JwtSettings__Key") ?? throw new ArgumentNullException("JWT key is missing");
     }
 
     [HttpPost("[Action]")]

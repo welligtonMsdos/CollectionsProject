@@ -37,6 +37,8 @@
       context: .
       dockerfile: CollectionOutbox/Dockerfile
     container_name: collection_outbox_worker
+    env_file:
+      - CollectionOutbox/.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - RabbitMQ__Host=rabbitmq
