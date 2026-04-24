@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /AuthApi/.env
 /CollectionOutbox/.env
+/CollectionApi/.env
