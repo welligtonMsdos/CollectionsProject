@@ -1,5 +1,6 @@
 ﻿using CollectionApplication.Dtos;
 using CollectionApplication.Interfaces;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
@@ -11,11 +12,13 @@ public class RabbitMQProducer : IRabbitMQProducer
     private readonly ConnectionFactory _factory;
     private const string QueueName = "trigger";
 
-    public RabbitMQProducer()
+    public RabbitMQProducer(IConfiguration configuration)
     {
+        var host = configuration["RabbitMQ:Host"] ?? "localhost";
+
         _factory = new ConnectionFactory
         {
-            HostName = "rabbit",
+            HostName = host,
             AutomaticRecoveryEnabled = true
         };
     }
