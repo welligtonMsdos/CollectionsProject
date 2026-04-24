@@ -1,6 +1,6 @@
-using CollectionDomain.Interfaces.Services;
-using CollectionDomain.Services;
+using CollectionApplication.Interfaces;
 using CollectionEmail.Service;
+using CollectionInfrastructure.Service;
 
 var builder = Host.CreateApplicationBuilder(args);
 

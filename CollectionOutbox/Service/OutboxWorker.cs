@@ -1,6 +1,6 @@
-﻿using CollectionDomain.Interfaces.Services;
-using CollectionDomain.Models.Outbox;
-using CollectionDomain.Models.Users;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
+using CollectionDomain.Entities;
 using MongoDB.Driver;
 using System.Text.Json;
 
@@ -31,7 +31,7 @@ public class OutboxWorker: BackgroundService
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var rabbitMQService = scope.ServiceProvider.GetRequiredService<IRabbitMQProducerService>();
+                var rabbitMQService = scope.ServiceProvider.GetRequiredService<IRabbitMQProducer>();
 
                 await ProcessOutboxMessages(rabbitMQService, stoppingToken);
             }
@@ -40,7 +40,7 @@ public class OutboxWorker: BackgroundService
         }
     }
 
-    private async Task ProcessOutboxMessages(IRabbitMQProducerService rabbitMQService,
+    private async Task ProcessOutboxMessages(IRabbitMQProducer rabbitMQService,
                                              CancellationToken stoppingToken)
     {
         var collection = _mongoClient.GetDatabase(_databaseName)
@@ -48,7 +48,7 @@ public class OutboxWorker: BackgroundService
 
         var pendingMessages = await collection
                 .Find(m => m.ProcessedAt == null)
-                .Limit(20) // Process in batches for performance
+                .Limit(20) 
                 .ToListAsync(stoppingToken);
 
         foreach (var message in pendingMessages)
@@ -57,7 +57,9 @@ public class OutboxWorker: BackgroundService
             {
                 _logger.LogInformation($"Processing Outbox {message.Id}");
 
-                var userObject = JsonSerializer.Deserialize<User>(message.Content);
+                Console.WriteLine($"[x] Message: {message}");
+
+                var userObject = JsonSerializer.Deserialize<UserDto>(message.Content);
 
                 if (userObject != null)
                 {

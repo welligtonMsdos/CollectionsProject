@@ -1,5 +1,5 @@
-﻿using CollectionDomain.Dtos.Users;
-using CollectionDomain.Interfaces.Services;
+﻿using CollectionApplication.Dtos;
+using CollectionApplication.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -49,6 +49,8 @@ public class RabbitMQConsumerService: BackgroundService
 
             try
             {
+                Console.WriteLine($"[x] Message: {message}");
+
                 var user = JsonSerializer.Deserialize<UserDto>(message);
 
                 using (var scope = _serviceProvider.CreateScope())
