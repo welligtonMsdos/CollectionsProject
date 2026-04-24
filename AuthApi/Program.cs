@@ -74,8 +74,8 @@ builder.Services.AddSingleton<IMongoClient>(sp => {
 
 builder.Services.AddScoped<AuthContext>();
 
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();

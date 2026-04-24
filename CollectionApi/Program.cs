@@ -1,5 +1,5 @@
 using CollectionApplication.Interfaces;
-using CollectionApplication.Validators.Concerts;
+using CollectionApplication.Validators.Vinyls;
 using CollectionDomain.Interfaces;
 using CollectionInfrastructure.Data;
 using CollectionInfrastructure.Repositories;
@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddValidatorsFromAssemblyContaining<ConcertCreateValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<VinylCreateValidator>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -78,6 +78,10 @@ builder.Services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(connectionSt
 builder.Services.AddScoped<IConcertDapperRepository, ConcertDapperRepository>();
 builder.Services.AddScoped<IConcertEFRepository, ConcertEFRepository>();
 builder.Services.AddScoped<IConcertService, ConcertService>();
+
+builder.Services.AddScoped<IVinylDapperRepository, VinylDapperRepository>();
+builder.Services.AddScoped<IVinylEFRepository, VinylEFRepository>();
+builder.Services.AddScoped<IVinylService, VinylService>();
 
 var app = builder.Build();
 

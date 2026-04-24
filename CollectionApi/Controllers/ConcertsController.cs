@@ -23,9 +23,8 @@ public class ConcertsController : ApiControllerBase
         var result = await _service.PostAsync(concertCreateDto, UserId);
 
         return CreatedAtAction(nameof(GetByGuid),
-               new { guid = result.Guid },
-               Result<ConcertDto>.Ok(result,
-                                     "Concert successfully created!"));
+                               new { guid = result.Guid },
+                               Result<ConcertDto>.Ok(result, "Concert successfully created!"));
     }
 
     [HttpGet]

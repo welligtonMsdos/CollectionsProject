@@ -1,15 +1,18 @@
 ﻿namespace CollectionApplication.Dtos;
 
-public record ConcertBaseDto(string Artist,
-                             string Venue,
-                             DateOnly ShowDate,
-                             string Photo);
-
 public record ConcertDto(Guid Guid,
-                         ConcertBaseDto basedto,
-                         string ShowDateDescription
-                         );
+                         string Artist,
+                         string Venue,
+                         DateOnly ShowDate,
+                         string Photo,
+                         string ShowDateDescription);
 
-public record ConcertCreateDto(ConcertBaseDto basedto);
+public record ConcertCreateDto(string Artist,
+                               string Venue,
+                               DateOnly ShowDate,
+                               string Photo);
 
-public record ConcertUpdateDto(ConcertBaseDto basedto);
+public record ConcertUpdateDto(string Artist,
+                               string Venue,
+                               DateOnly ShowDate,
+                               string Photo);

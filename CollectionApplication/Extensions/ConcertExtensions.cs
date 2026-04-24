@@ -17,18 +17,13 @@ public static class ConcertExtensions
     {
         ArgumentNullException.ThrowIfNull(concert);
 
-        var basedto = new ConcertBaseDto
-        (
-            concert.Artist,
-            concert.Venue,
-            concert.ShowDate,
-            concert.Photo
-        );
-
         return new ConcertDto
         (
             concert.Guid,
-            basedto,
+            concert.Artist,
+            concert.Venue,
+            concert.ShowDate,
+            concert.Photo,
             ToFormattedDateString(concert.ShowDate)
         );
     }
@@ -37,20 +32,12 @@ public static class ConcertExtensions
     {
         ArgumentNullException.ThrowIfNull(concertCreateDto);
 
-        var basedto = new ConcertBaseDto
-        (
-            concertCreateDto.basedto.Artist,
-            concertCreateDto.basedto.Venue,
-            concertCreateDto.basedto.ShowDate,
-            concertCreateDto.basedto.Photo
-        );
-
         return new Concert
         {
-            Artist = basedto.Artist,
-            Venue = basedto.Venue,
-            ShowDate = basedto.ShowDate,
-            Photo = basedto.Photo,
+            Artist = concertCreateDto.Artist,
+            Venue = concertCreateDto.Venue,
+            ShowDate = concertCreateDto.ShowDate,
+            Photo = concertCreateDto.Photo,
             UserId = string.Empty,
         };
     }
@@ -61,9 +48,9 @@ public static class ConcertExtensions
 
         ArgumentNullException.ThrowIfNull(concertUpdateDto);
 
-        concert.Artist = concertUpdateDto.basedto.Artist;
-        concert.Venue = concertUpdateDto.basedto.Venue;
-        concert.ShowDate = concertUpdateDto.basedto.ShowDate;
-        concert.Photo = concertUpdateDto.basedto.Photo;
+        concert.Artist = concertUpdateDto.Artist;
+        concert.Venue = concertUpdateDto.Venue;
+        concert.ShowDate = concertUpdateDto.ShowDate;
+        concert.Photo = concertUpdateDto.Photo;
     }
 }

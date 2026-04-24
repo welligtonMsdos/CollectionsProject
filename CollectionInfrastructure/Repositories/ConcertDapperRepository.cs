@@ -1,12 +1,13 @@
 ﻿using CollectionDomain.Entities;
 using CollectionDomain.Interfaces;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace CollectionInfrastructure.Repositories;
 
 public class ConcertDapperRepository : BaseRepository, IConcertDapperRepository
 {
-    public ConcertDapperRepository(string connectionString) : base(connectionString)
+    public ConcertDapperRepository(IConfiguration config) : base(config)
     {
     }
 
