@@ -8,4 +8,4 @@ public class ApiControllerBase : ControllerBase
 {
     protected string UserId => User.FindFirstValue("id") ?? string.Empty;
 }
-}
+
