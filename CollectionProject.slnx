@@ -1,6 +1,3 @@
 <Solution>
   <Project Path="Collection10Api/Collection10Api.csproj" Id="c0f3bc5c-db63-4013-b540-8f6fb7a90d03" />
-  <Project Path="CollectionApi/CollectionApi.csproj" Id="cd34b343-5c68-480a-a9d0-40fa98dead8b" />
-  <Project Path="CollectionApplication/CollectionApplication.csproj" Id="d2e6e8eb-6c1f-4fae-8fea-a34130c1fe31" />
-  <Project Path="CollectionShared/CollectionShared.csproj" Id="cd823d54-5d18-4890-b31d-36df2d715b42" />
 </Solution>
