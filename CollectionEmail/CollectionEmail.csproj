@@ -16,6 +16,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CollectionApplication\CollectionApplication.csproj" />
-    <ProjectReference Include="..\CollectionInfrastructure\CollectionInfrastructure.csproj" />
   </ItemGroup>
 </Project>
