@@ -28,8 +28,8 @@ public class TokenService : ITokenService
                     new Claim("name", userDataLoginDto.User.Name),
            }),
             Expires = DateTime.UtcNow.AddHours(2),
-            //Issuer = "http://13.59.37.186:5011",
-            Issuer = "http://localhost:5011",
+            Issuer = "http://13.59.37.186:5011",
+            //Issuer = "http://localhost:5011",
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyDefault), 
                                                         SecurityAlgorithms.HmacSha256Signature)
         };

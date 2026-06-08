@@ -57,8 +57,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
             ValidateIssuer = true,
-            //ValidIssuer = "http://13.59.37.186:5011",
-            ValidIssuer = "http://localhost:5011",
+            ValidIssuer = "http://13.59.37.186:5011",
+            //ValidIssuer = "http://localhost:5011",
             ValidateAudience = false,
             ValidateLifetime = true
         };

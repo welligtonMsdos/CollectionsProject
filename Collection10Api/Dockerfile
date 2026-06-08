@@ -12,26 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AuthApi/AuthApi.csproj", "AuthApi/"]
-COPY ["CollectionApi/CollectionApi.csproj", "CollectionApi/"]
-COPY ["CollectionApplication/CollectionApplication.csproj", "CollectionApplication/"]
-COPY ["CollectionDomain/CollectionDomain.csproj", "CollectionDomain/"]
-COPY ["CollectionEmail/CollectionEmail.csproj", "CollectionEmail/"]
-COPY ["CollectionInfrastructure/CollectionInfrastructure.csproj", "CollectionInfrastructure/"]
-COPY ["CollectionOutbox/CollectionOutbox.csproj", "CollectionOutbox/"]
-COPY ["CollectionShared/CollectionShared.csproj", "CollectionShared/"]
-RUN dotnet restore "./AuthApi/AuthApi.csproj"
+COPY ["Collection10Api/Collection10Api.csproj", "Collection10Api/"]
+RUN dotnet restore "./Collection10Api/Collection10Api.csproj"
 COPY . .
-WORKDIR "/src/AuthApi"
-RUN dotnet build "./AuthApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Collection10Api"
+RUN dotnet build "./Collection10Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AuthApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Collection10Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AuthApi.dll"]
+ENTRYPOINT ["dotnet", "Collection10Api.dll"]
