@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /AuthApi/.env
 /CollectionOutbox/.env
 /CollectionApi/.env
+/Collection10Api/.env
