@@ -8,7 +8,7 @@ public class VinylDapperRepository : BaseRepository, IVinylDapperRepository
 {
     public VinylDapperRepository(IConfiguration config) : base(config) { }
 
-    public async Task<IEnumerable<Vinyl>> GetAsync(string userId)
+    public async Task<IEnumerable<Vinyl>> GetVinylsAsync(string userId)
     {
         using var connection = CreateConnection();
 
@@ -21,7 +21,7 @@ public class VinylDapperRepository : BaseRepository, IVinylDapperRepository
         return await connection.QueryAsync<Vinyl>(query, new { UserId = userId });
     }
 
-    public async Task<IEnumerable<Vinyl>> GetByComboAsync(string userId)
+    public async Task<IEnumerable<Vinyl>> GetVinylByComboAsync(string userId)
     {
         using var connection = CreateConnection();
 
@@ -37,7 +37,7 @@ public class VinylDapperRepository : BaseRepository, IVinylDapperRepository
         return await connection.QueryAsync<Vinyl>(query, new { UserId = userId });
     }
 
-    public async Task<Vinyl?> GetByGuidAsync(Guid guid)
+    public async Task<Vinyl?> GetVinylByGuidAsync(Guid guid)
     {
         using var connection = CreateConnection();
 

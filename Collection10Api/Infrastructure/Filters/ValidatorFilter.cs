@@ -22,11 +22,13 @@ public class ValidatorFilter : IAsyncActionFilter
             if (argument == null) continue;
 
             var validatorType = typeof(IValidator<>).MakeGenericType(argument.GetType());
+
             var validator = _serviceProvider.GetService(validatorType) as IValidator;
 
             if (validator != null)
             {
                 var validationContext = new ValidationContext<object>(argument);
+
                 var validationResult = await validator.ValidateAsync(validationContext);
 
                 if (!validationResult.IsValid)
@@ -39,6 +41,7 @@ public class ValidatorFilter : IAsyncActionFilter
                         );
 
                     context.Result = new BadRequestObjectResult(Result<object>.Failure(errors));
+
                     return;
                 }
             }
@@ -47,6 +50,7 @@ public class ValidatorFilter : IAsyncActionFilter
         if (context.ActionArguments.Any(x => x.Value == null))
         {
             context.Result = new BadRequestObjectResult(Result<object>.Failure("O corpo da requisição não pode ser vazio."));
+
             return;
         }
 

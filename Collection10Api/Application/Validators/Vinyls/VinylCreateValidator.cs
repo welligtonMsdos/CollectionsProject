@@ -8,26 +8,26 @@ public class VinylCreateValidator : AbstractValidator<VinylCreateDto>
     public VinylCreateValidator()
     {
         RuleFor(x => x.Artist)
-          .NotEmpty().WithMessage("Artist is required")
-          .MinimumLength(3).WithMessage("Artist must be at least 3 characters")
-          .MaximumLength(50).WithMessage("Artist must not exceed 50 characters");
+          .NotEmpty().WithMessage("Artista é obrigatório")
+          .MinimumLength(3).WithMessage("Artista deve ter pelo menos 3 caracteres")
+          .MaximumLength(50).WithMessage("Artista não deve exceder 50 caracteres");
 
         RuleFor(x => x.Album)
-            .NotEmpty().WithMessage("Album is required")
-            .MinimumLength(3).WithMessage("Album must be at least 3 characters")
-            .MaximumLength(50).WithMessage("Album must not exceed 50 characters");
+            .NotEmpty().WithMessage("Álbum é obrigatório")
+            .MinimumLength(3).WithMessage("Álbum deve ter pelo menos 3 caracteres")
+            .MaximumLength(50).WithMessage("Álbum não deve exceder 50 caracteres");
 
         RuleFor(x => x.Year)
-            .NotEmpty().WithMessage("Year is required")
-            .InclusiveBetween(1900, DateTime.Now.Year).WithMessage($"Year must be between 1900 and {DateTime.Now.Year}");
+            .NotEmpty().WithMessage("Ano é obrigatório")
+            .InclusiveBetween(1900, DateTime.Now.Year).WithMessage($"Ano deve ser entre 1900 e {DateTime.Now.Year}");
 
         RuleFor(x => x.Price)
-            .NotEmpty().WithMessage("Price is required")
-            .GreaterThan(0).WithMessage("Price must be greater than 0");
+            .NotEmpty().WithMessage("Preço é obrigatório")
+            .GreaterThan(0).WithMessage("Preço deve ser maior que 0");
 
         RuleFor(x => x.Photo)
-            .NotEmpty().WithMessage("Photo is required")
-            .MinimumLength(10).WithMessage("Photo URL must be at least 10 characters")
-            .MaximumLength(255).WithMessage("Photo URL must not exceed 255 characters");
+            .NotEmpty().WithMessage("Foto é obrigatória")
+            .MinimumLength(10).WithMessage("URL da foto deve ter pelo menos 10 caracteres")
+            .MaximumLength(255).WithMessage("URL da foto não deve exceder 255 caracteres");
     }
 }

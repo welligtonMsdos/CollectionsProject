@@ -16,6 +16,7 @@ public class CollectionContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new VinylMap());
+
         modelBuilder.ApplyConfiguration(new ConcertMap());
     }
 }

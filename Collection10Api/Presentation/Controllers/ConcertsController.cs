@@ -10,27 +10,27 @@ namespace Collection10Api.Presentation.Controllers;
 [Route("api/[controller]")]
 public class ConcertsController: ApiControllerBase
 {
-    private readonly IConcertService _service;
+    private readonly IConcertService _concertService;
 
-    public ConcertsController(IConcertService service)
+    public ConcertsController(IConcertService concertService)
     {
-        _service = service;
+        _concertService = concertService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] ConcertCreateDto concertCreateDto)
     {
-        var result = await _service.PostAsync(concertCreateDto, UserId);
+        var result = await _concertService.CreateConcertAsync(concertCreateDto, UserId);
 
         return CreatedAtAction(nameof(GetByGuid),
                                new { guid = result.Guid },
-                               Result<ConcertDto>.Ok(result, "Concert successfully created!"));
+                               Result<ConcertDto>.Ok(result, "Show criado com sucesso!"));
     }
 
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var concerts = await _service.GetAsync(UserId);
+        var concerts = await _concertService.GetConcertsAsync(UserId);
 
         return Ok(Result<IEnumerable<ConcertDto>>.Ok(concerts));
     }
@@ -38,7 +38,7 @@ public class ConcertsController: ApiControllerBase
     [HttpGet("Upcoming")]
     public async Task<IActionResult> GetUpcoming()
     {
-        var concerts = await _service.GetUpcomingAsync(UserId);
+        var concerts = await _concertService.GetUpcomingAsync(UserId);
 
         return Ok(Result<IEnumerable<ConcertDto>>.Ok(concerts));
     }
@@ -46,7 +46,7 @@ public class ConcertsController: ApiControllerBase
     [HttpGet("Past")]
     public async Task<IActionResult> GetPast()
     {
-        var concerts = await _service.GetPastAsync(UserId);
+        var concerts = await _concertService.GetPastAsync(UserId);
 
         return Ok(Result<IEnumerable<ConcertDto>>.Ok(concerts));
     }
@@ -54,10 +54,10 @@ public class ConcertsController: ApiControllerBase
     [HttpGet("{guid:guid}")]
     public async Task<IActionResult> GetByGuid(Guid guid)
     {
-        var concert = await _service.GetByGuidAsync(guid);
+        var concert = await _concertService.GetConcertByGuidAsync(guid);
 
         if (concert is null)
-            return NotFound(Result<object>.Failure("Concert not found."));
+            return NotFound(Result<object>.Failure("Show não encontrado."));
 
         return Ok(Result<ConcertDto>.Ok(concert));
     }
@@ -65,24 +65,23 @@ public class ConcertsController: ApiControllerBase
     [HttpPut("{guid:guid}")]
     public async Task<IActionResult> Put(Guid guid, [FromBody] ConcertUpdateDto concertUpdateDto)
     {
-        var updatedConcert = await _service.PutAsync(guid,
-                                                     concertUpdateDto,
-                                                     UserId);
+        var updatedConcert = await _concertService.UpdateConcertAsync(
+                                                        guid,
+                                                        concertUpdateDto,
+                                                        UserId);
 
-        if (updatedConcert is null)
-            return NotFound(Result<object>.Failure("Concert not found for update."));
+        if (updatedConcert is null) return NotFound(Result<object>.Failure("Show não encontrado para atualização."));
 
-        return Ok(Result<ConcertDto>.Ok(updatedConcert, "Concert successfully updated!"));
+        return Ok(Result<ConcertDto>.Ok(updatedConcert, "Show atualizado com sucesso!"));
     }
 
     [HttpDelete("{guid:guid}")]
     public async Task<IActionResult> Delete(Guid guid)
     {
-        var deletedConcert = await _service.DeleteAsync(guid);
+        var deletedConcert = await _concertService.DeleteConcertAsync(guid);
 
-        if (!deletedConcert)
-            return NotFound(Result<object>.Failure("Concert not found for deletion."));
+        if (!deletedConcert) return NotFound(Result<object>.Failure("Show não encontrado para exclusão."));
 
-        return Ok(Result<bool>.Ok(true, "Concert removed successfully!"));
+        return Ok(Result<bool>.Ok(true, "Show removido com sucesso!"));
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Collection10Api.Domain.Interfaces;
 
-public interface IVinylDapperRepository : IDapperRepository<Vinyl>
+public interface IVinylDapperRepository 
 {
-    Task<IEnumerable<Vinyl>> GetByComboAsync(string userId);
+    Task<IEnumerable<Vinyl>> GetVinylsAsync(string userId);
+    Task<IEnumerable<Vinyl>> GetVinylByComboAsync(string userId);
+    Task<Vinyl?> GetVinylByGuidAsync(Guid guid);       
 }

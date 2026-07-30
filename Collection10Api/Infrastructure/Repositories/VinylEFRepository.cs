@@ -13,16 +13,7 @@ public class VinylEFRepository : IVinylEFRepository
         _context = context;
     }
 
-    public async Task<bool> DeleteAsync(Vinyl obj)
-    {
-        _context.vinyls.Remove(obj);
-
-        var deleted = await _context.SaveChangesAsync();
-
-        return deleted > 0;
-    }
-
-    public async Task<Vinyl> PostAsync(Vinyl obj)
+    public async Task<Vinyl> CreateVinylAsync(Vinyl obj)
     {
         await _context.vinyls.AddAsync(obj);
 
@@ -31,7 +22,7 @@ public class VinylEFRepository : IVinylEFRepository
         return obj;
     }
 
-    public async Task<Vinyl> PutAsync(Vinyl obj)
+    public async Task<Vinyl> UpdateVinylAsync(Vinyl obj)
     {
         _context.vinyls.Update(obj);
 
@@ -39,4 +30,13 @@ public class VinylEFRepository : IVinylEFRepository
 
         return obj;
     }
+
+    public async Task<bool> DeleteVinylAsync(Vinyl obj)
+    {
+        _context.vinyls.Remove(obj);
+
+        var deleted = await _context.SaveChangesAsync();
+
+        return deleted > 0;
+    }    
 }

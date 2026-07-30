@@ -13,16 +13,7 @@ public class ConcertEFRepository : IConcertEFRepository
         _context = context;
     }
 
-    public async Task<bool> DeleteAsync(Concert obj)
-    {
-        _context.concerts.Remove(obj);
-
-        var deleted = await _context.SaveChangesAsync();
-
-        return deleted > 0;
-    }
-
-    public async Task<Concert> PostAsync(Concert obj)
+    public async Task<Concert> CreateConcertAsync(Concert obj)
     {
         await _context.concerts.AddAsync(obj);
 
@@ -31,7 +22,7 @@ public class ConcertEFRepository : IConcertEFRepository
         return obj;
     }
 
-    public async Task<Concert> PutAsync(Concert obj)
+    public async Task<Concert> UpdateConcertAsync(Concert obj)
     {
         _context.concerts.Update(obj);
 
@@ -39,4 +30,13 @@ public class ConcertEFRepository : IConcertEFRepository
 
         return obj;
     }
+
+    public async Task<bool> DeleteConcertAsync(Concert obj)
+    {
+        _context.concerts.Remove(obj);
+
+        var deleted = await _context.SaveChangesAsync();
+
+        return deleted > 0;
+    }     
 }

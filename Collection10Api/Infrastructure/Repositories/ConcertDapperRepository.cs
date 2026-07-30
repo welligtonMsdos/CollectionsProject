@@ -10,7 +10,7 @@ public class ConcertDapperRepository : BaseRepository, IConcertDapperRepository
     {
     }
 
-    public async Task<IEnumerable<Concert>> GetAsync(string userId)
+    public async Task<IEnumerable<Concert>> GetConcertsAsync(string userId)
     {
         using var connection = CreateConnection();
 
@@ -22,16 +22,20 @@ public class ConcertDapperRepository : BaseRepository, IConcertDapperRepository
         return await connection.QueryAsync<Concert>(query, new { UserId = userId });
     }
 
-    public async Task<Concert?> GetByGuidAsync(Guid guid)
+    public async Task<ICollection<Concert>> GetUpcomingAsync(string userId)
     {
-        using var connection = CreateConnection();
-
         var query = @"SELECT ""Guid"", ""Artist"", ""Venue"", ""ShowDate"",""Photo""
                       FROM ""Concert""
                       WHERE ""Active"" = TRUE AND
-                            ""Guid"" = @Guid";
+                            ""ShowDate"" >= NOW() AND
+                            ""UserId"" = @UserId 
+                      ORDER BY ""ShowDate"" ASC";
 
-        return await connection.QueryFirstOrDefaultAsync<Concert>(query, new { Guid = guid });
+        using var connection = CreateConnection();
+
+        var result = await connection.QueryAsync<Concert>(query, new { UserId = userId });
+
+        return result.ToList();
     }
 
     public async Task<ICollection<Concert>> GetPastAsync(string userId)
@@ -50,19 +54,15 @@ public class ConcertDapperRepository : BaseRepository, IConcertDapperRepository
         return result.ToList();
     }
 
-    public async Task<ICollection<Concert>> GetUpcomingAsync(string userId)
+    public async Task<Concert?> GetConcertByGuidAsync(Guid guid)
     {
+        using var connection = CreateConnection();
+
         var query = @"SELECT ""Guid"", ""Artist"", ""Venue"", ""ShowDate"",""Photo""
                       FROM ""Concert""
                       WHERE ""Active"" = TRUE AND
-                            ""ShowDate"" >= NOW() AND
-                            ""UserId"" = @UserId 
-                      ORDER BY ""ShowDate"" ASC";
+                            ""Guid"" = @Guid";
 
-        using var connection = CreateConnection();
-
-        var result = await connection.QueryAsync<Concert>(query, new { UserId = userId });
-
-        return result.ToList();
-    }
+        return await connection.QueryFirstOrDefaultAsync<Concert>(query, new { Guid = guid });
+    }    
 }
