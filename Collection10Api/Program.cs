@@ -30,10 +30,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        policy.WithOrigins("http://13.59.37.186", "http://localhost:4200")
-               .WithMethods("GET", "POST", "PUT", "DELETE")
-               .WithHeaders("Content-Type", "Authorization")
-               .AllowCredentials();
+        policy.WithOrigins("https://authproject-8vvl.onrender.com",
+                           "http://localhost:4200")
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials();
     });
 });
 
@@ -66,7 +67,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
             ValidateIssuer = true,
-            ValidIssuer = "http://13.59.37.186:5011",           
+            ValidIssuer = "https://authproject-8vvl.onrender.com",
             ValidateAudience = false,
             ValidateLifetime = true
         };
@@ -92,6 +93,8 @@ builder.Services.AddScoped<IVinylEFRepository, VinylEFRepository>();
 builder.Services.AddScoped<IVinylService, VinylService>();
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
