@@ -15,8 +15,16 @@ using Npgsql;
 using System.Data;
 using System.Text;
 using Scalar.AspNetCore;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownIPNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 builder.Services.AddCors(options =>
 {
@@ -96,6 +104,7 @@ app.MapScalarApiReference(options =>
     options.DefaultHttpClient = new(ScalarTarget.JavaScript, ScalarClient.HttpClient);
     options.CustomCss = "";
     options.ShowSidebar = true;
+    options.DarkMode = true;
     options.AddPreferredSecuritySchemes("Bearer")
            .AddHttpAuthentication("Bearer", auth =>
            {
