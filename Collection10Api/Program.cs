@@ -31,7 +31,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy", policy =>
     {
         policy.WithOrigins("https://authproject-8vvl.onrender.com",
-                           "http://localhost:4200")
+                           "http://localhost:4200",
+                           "https://tom-colections.onrender.com")
           .AllowAnyMethod()
           .AllowAnyHeader()
           .AllowCredentials();
